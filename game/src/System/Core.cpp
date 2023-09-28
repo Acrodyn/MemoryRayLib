@@ -57,6 +57,7 @@ bool Core::Init()
 		//ReadResolution(width, height);
 		SetConfigFlags(FLAG_MSAA_4X_HINT);
 		InitWindow(width, height, "Memory");
+		HideCursor();
 	}
 	catch (std::exception& e)
 	{

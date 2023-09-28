@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Gun.h"
-#include "raylib.h"
 
 class TestGun : public Gun
 {
