@@ -1,16 +1,19 @@
-#include "system.h"
+#include "Core.h"
+#include "raylib.h"
+#include "GamePhase.h"
+#include "Menu/Menu.h"
 
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 
-System::System()
+Core::Core()
 {
 
 }
 
-void System::Run()
+void Core::Run()
 {
 	if (!Init())
 	{
@@ -22,22 +25,32 @@ void System::Run()
 		BeginDrawing();
 		ClearBackground(BLACK);
 
-		DrawText("My new memory attempt", 200, 200, 20, WHITE);
-
+		_gamePhase->Update();
+		
 		EndDrawing();
 	}
 
 	Terminate();
 }
 
-bool System::Init()
+bool Core::IsInteractPressed()
 {
-	int width = 0;
-	int height = 0;
+	return IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || IsKeyPressed(KEY_SPACE);
+}
+
+bool Core::IsInteractDown()
+{
+	return IsMouseButtonDown(MOUSE_BUTTON_LEFT) || IsKeyDown(KEY_SPACE);;
+}
+
+bool Core::Init()
+{
+	int width = 1280;
+	int height = 800;
 
 	try
 	{
-		ReadResolution(width, height);
+		//ReadResolution(width, height);
 		InitWindow(width, height, "Memory");
 	}
 	catch (std::exception& e)
@@ -46,15 +59,17 @@ bool System::Init()
 		return false;
 	}
 
+	InitAppState(AppState::Menu);
+
 	return true;
 }
 
-void System::Terminate()
+void Core::Terminate()
 {
 	CloseWindow();
 }
 
-void System::ReadResolution(int& width, int& height)
+void Core::ReadResolution(int& width, int& height)
 {
 	std::ifstream configFile;
 	std::string line;
@@ -79,4 +94,27 @@ void System::ReadResolution(int& width, int& height)
 
 	width = std::stoi(tokens[0]);
 	height = std::stoi(tokens[1]);
+}
+
+void Core::InitAppState(AppState newState)
+{
+	if (_currentState == newState)
+	{
+		return;
+	}
+
+	_currentState = newState;
+
+	switch (_currentState)
+	{
+	case AppState::Menu:
+		_gamePhase = new Menu();
+		_gamePhase->Start();
+
+		break;
+	case AppState::Game:
+		break;
+	default:
+		return;
+	}
 }
