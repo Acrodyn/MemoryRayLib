@@ -1,5 +1,4 @@
 #include "Core.h"
-#include "raylib.h"
 #include "GamePhase.h"
 #include "Menu/Menu.h"
 #include "Game/Game.h"
@@ -41,6 +40,11 @@ bool Core::IsInteractPressed()
 bool Core::IsInteractDown()
 {
 	return IsMouseButtonDown(MOUSE_BUTTON_LEFT) || IsKeyDown(KEY_SPACE);;
+}
+
+Vector2 Core::GetScreenCenter()
+{
+	return { (GetScreenWidth()) / 2.0f, GetScreenHeight() / 2.0f };
 }
 
 bool Core::Init()

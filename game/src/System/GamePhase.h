@@ -6,6 +6,7 @@ class GamePhase
 {
 public:
 	GamePhase();
+	virtual ~GamePhase();
 
 	void Start();
 	void End();

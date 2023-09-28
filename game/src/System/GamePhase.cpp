@@ -6,6 +6,10 @@ GamePhase::GamePhase()
 
 }
 
+GamePhase::~GamePhase()
+{
+}
+
 void GamePhase::Start()
 {
 	_phaseState = GamePhaseState::Starting;

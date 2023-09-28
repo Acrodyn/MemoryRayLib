@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SystemGlobals.h"
+#include "raylib.h"
 
 class GamePhase;
 
@@ -12,6 +13,7 @@ public:
 
 	static bool IsInteractPressed();
 	static bool IsInteractDown();
+	static Vector2 GetScreenCenter();
 
 private:
 	bool Init();

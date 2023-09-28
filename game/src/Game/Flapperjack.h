@@ -2,12 +2,27 @@
 
 #include "raylib.h"
 
+#include <unordered_map>
+
+class Gun;
+
+enum class GunSlots {
+	Primary,
+	Back,
+	Left,
+	Right
+};
+
 class Flapperjack
 {
 public:
 	Flapperjack();
+	~Flapperjack();
 
 	void Update();
+
+private:
+	void UpdateGuns();
 
 private:
 	Vector2 _flapPosition;
@@ -17,11 +32,5 @@ private:
 	float _endAngle = 360.f;
 	float _segments = 0.f;
 
-	Rectangle _primaryGunRect;
-	Vector2 _primaryGunPivot;
-	float _primaryGunWidth = 5.f;
-	float _primaryGunHeight = 30.f;
-
-	float _rotation = 0.f;
-	float _rotationSpeed = 100.f;
+	std::unordered_map<GunSlots, Gun*> _guns;
 };
