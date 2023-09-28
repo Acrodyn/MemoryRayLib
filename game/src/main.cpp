@@ -1,13 +1,9 @@
-#include "System/system.h"
-
-//#include <cstdio>
+#include "System/Core.h"
 
 int main ()
 {
-	System core;
+	Core core;
 	core.Run();
-
-	//getchar();
 
 	return 0;
 }
