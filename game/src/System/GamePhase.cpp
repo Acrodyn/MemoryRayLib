@@ -10,6 +10,12 @@ void GamePhase::Start()
 {
 	_phaseState = GamePhaseState::Starting;
 	_transitionAlpha = 1.f;
+	InitPhase();
+}
+
+void GamePhase::End()
+{
+	DestroyPhase();
 }
 
 void GamePhase::Update()
@@ -66,6 +72,12 @@ void GamePhase::TransitionFrom()
 	_transitionAlpha += _transitionFromSpeed * GetFrameTime();
 }
 
-void GamePhase::LoopPhase()
+void GamePhase::InitPhase()
 {
+
+}
+
+void GamePhase::DestroyPhase()
+{
+
 }

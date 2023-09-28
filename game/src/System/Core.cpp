@@ -51,6 +51,7 @@ bool Core::Init()
 	try
 	{
 		//ReadResolution(width, height);
+		SetConfigFlags(FLAG_MSAA_4X_HINT);
 		InitWindow(width, height, "Memory");
 	}
 	catch (std::exception& e)
@@ -59,7 +60,8 @@ bool Core::Init()
 		return false;
 	}
 
-	InitAppState(AppPhase::Menu);
+	//InitAppState(AppPhase::Menu);
+	InitAppState(AppPhase::Game); // for testing
 
 	return true;
 }
@@ -107,6 +109,7 @@ void Core::InitAppState(AppPhase newState)
 
 	if (_gamePhase != nullptr)
 	{
+		_gamePhase->End();
 		delete _gamePhase;
 	}
 
