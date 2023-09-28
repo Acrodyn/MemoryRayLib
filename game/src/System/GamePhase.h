@@ -8,8 +8,9 @@ public:
 	GamePhase();
 
 	virtual void Start();
-	virtual void End();
 	virtual void Update() = 0;
+
+	bool IsEnded();
 
 protected:
 	GamePhaseState _phaseState = GamePhaseState::Unset;

@@ -10,7 +10,7 @@ void GamePhase::Start()
 	_phaseState = GamePhaseState::Starting;
 }
 
-void GamePhase::End()
+bool GamePhase::IsEnded()
 {
-	_phaseState = GamePhaseState::Ending;
+	return _phaseState == GamePhaseState::Ended;
 }

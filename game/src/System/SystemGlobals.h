@@ -12,4 +12,5 @@ enum class GamePhaseState {
     Ending,
     Ended,
     Running,
+    Paused
 };

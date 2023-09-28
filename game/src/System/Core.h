@@ -18,6 +18,8 @@ private:
 	void Terminate();
 	void ReadResolution(int& width, int& height); // TODO: Switch to read config, more generalized
 	void InitAppState(AppState newState);
+	void CheckForStateChange();
+	AppState GetNextState();
 
 private:
 	AppState _currentState = AppState::Unset;

@@ -8,7 +8,6 @@ public:
 	Menu();
 
 	virtual void Start() override;
-	virtual void End() override;
 	virtual void Update() override;
 
 private:
@@ -19,5 +18,5 @@ private:
 private:
 	float _transitionAlpha = 0.f;
 	float _transitionToSpeed = 1.f;
-	float _transitionFromSpeed = 1.f;
+	float _transitionFromSpeed = 2.f;
 };

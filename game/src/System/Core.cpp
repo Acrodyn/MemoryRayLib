@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "GamePhase.h"
 #include "Menu/Menu.h"
+#include "Game/Game.h"
 
 #include <iostream>
 #include <fstream>
@@ -24,10 +25,9 @@ void Core::Run()
 	{
 		BeginDrawing();
 		ClearBackground(BLACK);
-
 		_gamePhase->Update();
-		
 		EndDrawing();
+		CheckForStateChange();
 	}
 
 	Terminate();
@@ -105,16 +105,46 @@ void Core::InitAppState(AppState newState)
 
 	_currentState = newState;
 
+	if (_gamePhase != nullptr)
+	{
+		delete _gamePhase;
+	}
+
 	switch (_currentState)
 	{
 	case AppState::Menu:
 		_gamePhase = new Menu();
-		_gamePhase->Start();
-
 		break;
 	case AppState::Game:
+		_gamePhase = new Game();
 		break;
 	default:
 		return;
+	}
+
+	_gamePhase->Start();
+}
+
+void Core::CheckForStateChange()
+{
+	if (_gamePhase->IsEnded())
+	{
+		InitAppState(GetNextState());
+	}
+}
+
+AppState Core::GetNextState()
+{
+	if (_gamePhase == nullptr)
+	{
+		return AppState::Unset;
+	}
+
+	switch (_currentState)
+	{
+	case AppState::Menu:
+		return AppState::Game;
+	default:
+		return AppState::Unset;
 	}
 }

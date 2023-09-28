@@ -13,12 +13,6 @@ void Menu::Start()
 	_transitionAlpha = 1.f;
 }
 
-void Menu::End()
-{
-	GamePhase::End();
-	_transitionAlpha = 0.f;
-}
-
 void Menu::Update()
 {
 	if (_phaseState == GamePhaseState::Ended)
@@ -37,6 +31,8 @@ void Menu::Update()
 				break;
 			case GamePhaseState::Ending:
 				TransitionFromMenu();
+				break;
+			default:
 				break;
 		}
 	}
