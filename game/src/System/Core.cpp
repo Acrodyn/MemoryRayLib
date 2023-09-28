@@ -27,6 +27,7 @@ void Core::Run()
 		_gamePhase->Update();
 		EndDrawing();
 		CheckForPhaseChange();
+		CheckForSystemInputs();
 	}
 
 	Terminate();
@@ -42,22 +43,51 @@ bool Core::IsInteractDown()
 	return IsMouseButtonDown(MOUSE_BUTTON_LEFT) || IsKeyDown(KEY_SPACE);;
 }
 
+bool Core::IsScreenModifierPressed()
+{
+	return IsKeyReleased(KEY_ENTER);
+}
+
 Vector2 Core::GetScreenCenter()
 {
-	return { (GetScreenWidth()) / 2.0f, GetScreenHeight() / 2.0f };
+	return { (GetDisplayWidth()) / 2.0f, GetDisplayHeight() / 2.0f };
+}
+
+int Core::GetDisplayWidth()
+{
+	if (IsWindowFullscreen())
+	{
+		int display = GetCurrentMonitor();
+		return GetMonitorWidth(display);
+	}
+	else
+	{
+		return GetScreenWidth();
+	}
+}
+
+int Core::GetDisplayHeight()
+{
+	if (IsWindowFullscreen())
+	{
+		int display = GetCurrentMonitor();
+		return GetMonitorHeight(display);
+	}
+	else
+	{
+		return GetScreenHeight();
+	}
 }
 
 bool Core::Init()
 {
-	int width = 1280;
-	int height = 800;
-
 	try
 	{
 		//ReadResolution(width, height);
 		SetConfigFlags(FLAG_MSAA_4X_HINT);
-		InitWindow(width, height, "Memory");
-		HideCursor();
+		InitWindow(defaultScreenWidth, screenHeight, "Flapperjack");
+		DisableCursor();
+		//SetFullScreen();
 	}
 	catch (std::exception& e)
 	{
@@ -141,6 +171,14 @@ void Core::CheckForPhaseChange()
 	}
 }
 
+void Core::CheckForSystemInputs()
+{
+	if (IsScreenModifierPressed())
+	{
+		SwitchFullScreen();
+	}
+}
+
 AppPhase Core::GetNextPhase()
 {
 	if (_gamePhase == nullptr)
@@ -156,5 +194,33 @@ AppPhase Core::GetNextPhase()
 		return AppPhase::Menu;
 	default:
 		return AppPhase::Unset;
+	}
+}
+
+void Core::SetFullScreen()
+{
+	int display = GetCurrentMonitor();
+	SetWindowSize(GetMonitorWidth(display), GetMonitorHeight(display));
+	ToggleFullscreen();
+}
+
+void Core::ExitFullScreen()
+{
+	if (IsWindowFullscreen())
+	{
+		ToggleFullscreen();
+		SetWindowSize(defaultScreenWidth, screenHeight);
+	}
+}
+
+void Core::SwitchFullScreen()
+{
+	if (IsWindowFullscreen())
+	{
+		ExitFullScreen();
+	}
+	else
+	{
+		SetFullScreen();
 	}
 }

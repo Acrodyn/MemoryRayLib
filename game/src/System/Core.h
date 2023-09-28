@@ -13,7 +13,10 @@ public:
 
 	static bool IsInteractPressed();
 	static bool IsInteractDown();
+	static bool IsScreenModifierPressed();
 	static Vector2 GetScreenCenter();
+	static int GetDisplayWidth();
+	static int GetDisplayHeight();
 
 private:
 	bool Init();
@@ -21,9 +24,16 @@ private:
 	void ReadResolution(int& width, int& height); // TODO: Switch to read config, more generalized
 	void InitAppState(AppPhase newState);
 	void CheckForPhaseChange();
+	void CheckForSystemInputs();
 	AppPhase GetNextPhase();
+	void SetFullScreen();
+	void ExitFullScreen();
+	void SwitchFullScreen();
 
 private:
 	AppPhase _currentState = AppPhase::Unset;
 	GamePhase* _gamePhase = nullptr;
+
+	int defaultScreenWidth = 1280;
+	int screenHeight = 800;
 };

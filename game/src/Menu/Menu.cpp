@@ -9,7 +9,7 @@ Menu::Menu()
 
 void Menu::LoopPhase()
 {
-	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), DARKGRAY);
+	DrawRectangle(0, 0, Core::GetDisplayWidth(), Core::GetDisplayHeight(), DARKGRAY);
 	DrawText("Test", 200, 200, 20, WHITE);
 
 	if (_phaseState != GamePhaseState::Ending)

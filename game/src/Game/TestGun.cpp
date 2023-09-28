@@ -18,6 +18,10 @@ void TestGun::Update()
 {
 	Gun::Update();
 
-	//_rotation += _rotationSpeed * GetFrameTime();
-	DrawRectanglePro(_primaryGunRect, _primaryGunPivot, _angle - 90.f, Fade(LIGHTGRAY, 0.5f));
+	// TODO: This should update on an event, NOT every frame
+	_position = Core::GetScreenCenter();
+	_primaryGunRect.x = _position.x;
+	_primaryGunRect.y = _position.y;
+
+	DrawRectanglePro(_primaryGunRect, _primaryGunPivot, _angle, Fade(LIGHTGRAY, 0.5f));
 }

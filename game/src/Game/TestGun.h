@@ -15,7 +15,4 @@ private:
 	Vector2 _primaryGunPivot;
 	float _primaryGunWidth = 5.f;
 	float _primaryGunHeight = 30.f;
-
-	float _rotation = 0.f;
-	float _rotationSpeed = 200.f;
 };

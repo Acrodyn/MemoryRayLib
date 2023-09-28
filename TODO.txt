@@ -1,1 +1,9 @@
+Code:
+
 - convert core into singleton?
+
+
+Game:
+
+- skill pool full of useful and useless skills
+- one main gun, up to 7 auxiliary guns (auto shoot)

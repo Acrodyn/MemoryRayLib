@@ -20,7 +20,7 @@ void Game::DestroyPhase()
 
 void Game::LoopPhase()
 {
-	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
+	DrawRectangle(0, 0, Core::GetDisplayWidth(), Core::GetDisplayHeight(), BLACK);
 	//("Test", 200, 200, 20, WHITE);
 
 	_flapperjack->Update();

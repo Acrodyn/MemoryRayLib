@@ -25,12 +25,11 @@ private:
 	void UpdateGuns();
 
 private:
-	Vector2 _flapPosition;
 	float _innerRadius = 12.f;
 	float _outerRadius = 18.f;
 	float _startangle = 0.f;
 	float _endAngle = 360.f;
-	float _segments = 0.f;
+	int _segments = 0;
 
 	std::unordered_map<GunSlots, Gun*> _guns;
 };

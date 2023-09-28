@@ -1,5 +1,6 @@
 #include "GamePhase.h"
 #include "raylib.h"
+#include "System/Core.h"
 
 GamePhase::GamePhase()
 {
@@ -60,7 +61,7 @@ void GamePhase::TransitionTo()
 		return;
 	}
 
-	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, _transitionAlpha));
+	DrawRectangle(0, 0, Core::GetDisplayWidth(), Core::GetDisplayHeight(), Fade(BLACK, _transitionAlpha));
 	_transitionAlpha -= _transitionToSpeed * GetFrameTime();
 }
 
@@ -72,7 +73,7 @@ void GamePhase::TransitionFrom()
 		return;
 	}
 
-	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(BLACK, _transitionAlpha));
+	DrawRectangle(0, 0, Core::GetDisplayWidth(), Core::GetDisplayHeight(), Fade(BLACK, _transitionAlpha));
 	_transitionAlpha += _transitionFromSpeed * GetFrameTime();
 }
 
