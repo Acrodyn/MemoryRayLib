@@ -27,7 +27,7 @@ void Core::Run()
 		ClearBackground(BLACK);
 		_gamePhase->Update();
 		EndDrawing();
-		CheckForStateChange();
+		CheckForPhaseChange();
 	}
 
 	Terminate();
@@ -59,7 +59,7 @@ bool Core::Init()
 		return false;
 	}
 
-	InitAppState(AppState::Menu);
+	InitAppState(AppPhase::Menu);
 
 	return true;
 }
@@ -96,7 +96,7 @@ void Core::ReadResolution(int& width, int& height)
 	height = std::stoi(tokens[1]);
 }
 
-void Core::InitAppState(AppState newState)
+void Core::InitAppState(AppPhase newState)
 {
 	if (_currentState == newState)
 	{
@@ -112,10 +112,10 @@ void Core::InitAppState(AppState newState)
 
 	switch (_currentState)
 	{
-	case AppState::Menu:
+	case AppPhase::Menu:
 		_gamePhase = new Menu();
 		break;
-	case AppState::Game:
+	case AppPhase::Game:
 		_gamePhase = new Game();
 		break;
 	default:
@@ -125,26 +125,28 @@ void Core::InitAppState(AppState newState)
 	_gamePhase->Start();
 }
 
-void Core::CheckForStateChange()
+void Core::CheckForPhaseChange()
 {
 	if (_gamePhase->IsEnded())
 	{
-		InitAppState(GetNextState());
+		InitAppState(GetNextPhase());
 	}
 }
 
-AppState Core::GetNextState()
+AppPhase Core::GetNextPhase()
 {
 	if (_gamePhase == nullptr)
 	{
-		return AppState::Unset;
+		return AppPhase::Unset;
 	}
 
 	switch (_currentState)
 	{
-	case AppState::Menu:
-		return AppState::Game;
+	case AppPhase::Menu:
+		return AppPhase::Game;
+	case AppPhase::Game:
+		return AppPhase::Menu;
 	default:
-		return AppState::Unset;
+		return AppPhase::Unset;
 	}
 }

@@ -7,11 +7,19 @@ class GamePhase
 public:
 	GamePhase();
 
-	virtual void Start();
-	virtual void Update() = 0;
+	void Start();
+	void Update();
 
 	bool IsEnded();
 
 protected:
+	void TransitionTo();
+	void TransitionFrom();
+	virtual void LoopPhase() = 0;
+
+protected:
 	GamePhaseState _phaseState = GamePhaseState::Unset;
+	float _transitionAlpha = 0.f;
+	float _transitionToSpeed = 1.f;
+	float _transitionFromSpeed = 2.f;
 };

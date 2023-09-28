@@ -7,6 +7,6 @@ class Game : public GamePhase
 public:
 	Game();
 
-	virtual void Start() override;
-	virtual void Update() override;
+protected:
+	void LoopPhase() override;
 };

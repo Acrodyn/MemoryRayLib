@@ -1,16 +1,22 @@
 #include "Game.h"
+#include "raylib.h"
+#include "System/Core.h"
 
 Game::Game()
 {
 
 }
 
-void Game::Start()
+void Game::LoopPhase()
 {
-	GamePhase::Start();
-}
+	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), GREEN);
+	DrawText("Test", 200, 200, 20, BLACK);
 
-void Game::Update()
-{
-
+	if (_phaseState != GamePhaseState::Ending)
+	{
+		if (Core::IsInteractPressed())
+		{
+			_phaseState = GamePhaseState::Ending;
+		}
+	}
 }

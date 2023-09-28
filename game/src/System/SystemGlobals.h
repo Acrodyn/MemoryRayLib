@@ -1,6 +1,6 @@
 #pragma once
 
-enum class AppState {
+enum class AppPhase {
     Unset,
     Menu,
     Game
