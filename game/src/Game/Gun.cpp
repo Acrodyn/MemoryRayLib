@@ -21,6 +21,21 @@ void Gun::Update()
 	RotateTowardMouse();
 }
 
+Vector2 Gun::GetShootPoint()
+{
+	return Vector2();
+}
+
+Vector2 Gun::GetShootDirection()
+{
+	Vector2 shootPointDirection;
+
+	shootPointDirection.x = cos(_angle * DEG2RAD);
+	shootPointDirection.y = sin(_angle * DEG2RAD);
+
+	return shootPointDirection;
+}
+
 void Gun::RotateTowardMouse()
 {
 	Vector2 currentMousePosition = GetMousePosition();
@@ -31,9 +46,7 @@ void Gun::RotateTowardMouse()
 	{
 		float deltaX = currentMousePosition.x - _lastMousePosition.x;
 		float deltaY = currentMousePosition.y - _lastMousePosition.y;
-
-		_lastMousePosition = currentMousePosition;
-
+		 
 		float from = _angle * DEG2RAD;
 		float to = atan2(deltaY, deltaX);
 
@@ -57,7 +70,11 @@ void Gun::RotateTowardMouse()
 			rotationDiff = 2 * PI + rotation;
 		}
 
-		_angle = Lerp(_angle, _angle + rotationDiff * RAD2DEG, _rotationSpeed * GetFrameTime());
-	}
+		float goal = _angle + rotationDiff * RAD2DEG;
+		
 
+		_angle = Lerp(_angle, goal, _rotationSpeed * GetFrameTime());
+
+		_lastMousePosition = currentMousePosition;
+	}
 }

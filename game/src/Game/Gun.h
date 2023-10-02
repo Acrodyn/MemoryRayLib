@@ -10,6 +10,8 @@ public:
 
 	virtual void Shoot() = 0;
 	virtual void Update();
+	virtual Vector2 GetShootPoint();
+	virtual Vector2 GetShootDirection();
 
 private:
 	void RotateTowardMouse();
@@ -19,7 +21,7 @@ protected:
 	float _angle = 0.f;
 
 private:
-	const float ROTATION_SENSITIVITY = 1.f;
+	const float ROTATION_SENSITIVITY = 5.f;
 	Vector2 _lastMousePosition;
-	float _rotationSpeed = 25.f;
+	float _rotationSpeed = 9.f;
 };

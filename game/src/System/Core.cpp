@@ -87,6 +87,7 @@ bool Core::Init()
 		SetConfigFlags(FLAG_MSAA_4X_HINT);
 		InitWindow(defaultScreenWidth, screenHeight, "Flapperjack");
 		DisableCursor();
+		SetTargetFPS(60);
 		//SetFullScreen();
 	}
 	catch (std::exception& e)
@@ -173,10 +174,10 @@ void Core::CheckForPhaseChange()
 
 void Core::CheckForSystemInputs()
 {
-	if (IsScreenModifierPressed())
+	/*if (IsScreenModifierPressed())
 	{
 		SwitchFullScreen();
-	}
+	}*/
 }
 
 AppPhase Core::GetNextPhase()

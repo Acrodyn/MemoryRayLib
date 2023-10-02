@@ -9,10 +9,11 @@ public:
 
 	void Shoot() override;
 	void Update() override;
+	Vector2 GetShootPoint() override;
 
 private:
-	Rectangle _primaryGunRect;
-	Vector2 _primaryGunPivot;
-	float _primaryGunWidth = 5.f;
-	float _primaryGunHeight = 30.f;
+	Rectangle _rect;
+	Vector2 _pivot;
+	float _width = 5.f;
+	float _height = 30.f;
 };
