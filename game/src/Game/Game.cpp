@@ -8,9 +8,32 @@
 #include "Bullet.h"
 #include "System/Core.h"
 
+#include <algorithm>
+#include <random>
+#include <chrono>
+
 Game::Game()
 {
 	_guns[GunSlots::Primary] = new TestGun();
+
+	_lastSpawnPoint = {};
+
+	// UP LEFT
+	_spawnBlocks.push_back(std::make_pair(Vector2({ 0.f, -_spawnPadding }), Vector2({ Core::GetDisplayWidth() / 2.f, -_spawnPadding })));	
+	// UP RIGHT
+	_spawnBlocks.push_back(std::make_pair(Vector2({ Core::GetDisplayWidth() / 2.f, -_spawnPadding }), Vector2({ (float)Core::GetDisplayWidth(), -_spawnPadding })));
+	// LEFT UP
+	_spawnBlocks.push_back(std::make_pair(Vector2({ -_spawnPadding , 0.f }), Vector2({ -_spawnPadding , Core::GetDisplayHeight() / 2.f})));
+	// LEFT DOWN
+	_spawnBlocks.push_back(std::make_pair(Vector2({ -_spawnPadding, Core::GetDisplayHeight() / 2.f }), Vector2({ -_spawnPadding, (float)Core::GetDisplayHeight() })));
+	// RIGHT UP
+	_spawnBlocks.push_back(std::make_pair(Vector2({ Core::GetDisplayWidth() + _spawnPadding, 0.f }), Vector2({ Core::GetDisplayWidth() + _spawnPadding, Core::GetDisplayHeight() / 2.f })));
+	// RIGHT DOWN
+	_spawnBlocks.push_back(std::make_pair(Vector2({ Core::GetDisplayWidth() + _spawnPadding, Core::GetDisplayHeight() / 2.f }), Vector2({ Core::GetDisplayWidth() + _spawnPadding, (float)Core::GetDisplayHeight() })));
+	// DOWN LEFT
+	_spawnBlocks.push_back(std::make_pair(Vector2({ 0.f, Core::GetDisplayHeight() + _spawnPadding}), Vector2({ Core::GetDisplayWidth() / 2.f, Core::GetDisplayHeight() + _spawnPadding })));
+	// DOWN RIGHT 
+	_spawnBlocks.push_back(std::make_pair(Vector2({ Core::GetDisplayWidth() / 2.f, Core::GetDisplayHeight() + _spawnPadding }), Vector2({ (float)Core::GetDisplayWidth(), Core::GetDisplayHeight() + _spawnPadding })));
 }
 
 Game::~Game()
@@ -26,10 +49,6 @@ void Game::InitPhase()
 	_flapperjack = new Flapperjack();
 	_bulletPool = new BulletPool();
 	_enemyPool = new EnemyPool();
-
-	Vector2 position = { 100.f, 100.f };
-
-	_enemyPool->ActivateEnemy(position, Core::GetScreenCenter());
 }
 
 void Game::DestroyPhase()
@@ -57,7 +76,14 @@ void Game::LoopPhase()
 		}
 	}
 
+	if (_currentEnemySpawnWaitTime <= 0.f)
+	{
+		_enemyPool->ActivateEnemy(GetEnemySpawnLocation());
+		_currentEnemySpawnWaitTime = _enemySpawnWaitTime;
+	}
+
 	_currentShootingWaitTime -= GetFrameTime();
+	_currentEnemySpawnWaitTime -= GetFrameTime();
 
 	_bulletPool->Update();
 	_enemyPool->Update();
@@ -83,4 +109,23 @@ void Game::CheckForCollisions()
 
 		// check with flapperjack for game over
 	}
+}
+
+Vector2 Game::GetEnemySpawnLocation()
+{
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::shuffle(std::begin(_spawnBlocks), std::end(_spawnBlocks), std::default_random_engine(seed));
+
+	std::pair<Vector2, Vector2>* selectedBlock = nullptr;
+	int iterator = 0;
+	do
+	{
+		selectedBlock = &_spawnBlocks[iterator++];
+	} while (&*_lastSpawnPoint == &*selectedBlock);
+
+	_lastSpawnPoint = &(*selectedBlock);
+
+	Vector2 spawnLocation = Vector2({ (float)GetRandomValue(_lastSpawnPoint->first.x, _lastSpawnPoint->second.x), (float)GetRandomValue(_lastSpawnPoint->first.y, _lastSpawnPoint->second.y) });
+
+	return spawnLocation;
 }

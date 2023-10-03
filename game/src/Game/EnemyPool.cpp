@@ -21,19 +21,19 @@ void EnemyPool::Update()
 	}
 }
 
-void EnemyPool::ActivateEnemy(Vector2 position, Vector2 direction)
+void EnemyPool::ActivateEnemy(Vector2 position)
 {
 	for (auto& enemy : _enemies)
 	{
 		if (!enemy->IsActive())
 		{
-			enemy->Activate(position, direction);
+			enemy->Activate(position, Core::GetScreenCenter());
 			return;
 		}
 	}
 
 	ExtendPool(50);
-	ActivateEnemy(position, direction);
+	ActivateEnemy(position);
 }
 
 void EnemyPool::ExtendPool(int extendBy)

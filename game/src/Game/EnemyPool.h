@@ -13,7 +13,7 @@ public:
 	~EnemyPool();
 
 	void Update();
-	void ActivateEnemy(Vector2 position, Vector2 direction);
+	void ActivateEnemy(Vector2 position);
 	void ExtendPool(int extendBy);
 	std::vector<Enemy*> GetActiveEnemies();
 
