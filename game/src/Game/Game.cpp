@@ -113,18 +113,16 @@ void Game::CheckForCollisions()
 
 Vector2 Game::GetEnemySpawnLocation()
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::shuffle(std::begin(_spawnBlocks), std::end(_spawnBlocks), std::default_random_engine(seed));
-
 	std::pair<Vector2, Vector2>* selectedBlock = nullptr;
-	int iterator = 0;
+
 	do
 	{
-		selectedBlock = &_spawnBlocks[iterator++];
-	} while (&*_lastSpawnPoint == &*selectedBlock);
+		int randomIndex = GetRandomValue(0, _spawnBlocks.size() - 1);
+		selectedBlock = &_spawnBlocks[randomIndex];
+	} 
+	while (&*_lastSpawnPoint == &*selectedBlock);
 
 	_lastSpawnPoint = &(*selectedBlock);
-
 	Vector2 spawnLocation = Vector2({ (float)GetRandomValue(_lastSpawnPoint->first.x, _lastSpawnPoint->second.x), (float)GetRandomValue(_lastSpawnPoint->first.y, _lastSpawnPoint->second.y) });
 
 	return spawnLocation;

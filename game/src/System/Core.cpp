@@ -28,6 +28,8 @@ void Core::Run()
 		EndDrawing();
 		CheckForPhaseChange();
 		CheckForSystemInputs();
+
+		//std::cout << GetFPS() << std::endl;
 	}
 
 	Terminate();
@@ -87,7 +89,7 @@ bool Core::Init()
 		SetConfigFlags(FLAG_MSAA_4X_HINT);
 		InitWindow(defaultScreenWidth, screenHeight, "Flapperjack");
 		DisableCursor();
-		SetTargetFPS(60);
+		SetTargetFPS(120);
 		//SetFullScreen();
 	}
 	catch (std::exception& e)

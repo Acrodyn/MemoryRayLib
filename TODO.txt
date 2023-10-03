@@ -7,3 +7,4 @@ Game:
 
 - skill pool full of useful and useless skills
 - one main gun, up to 7 auxiliary guns (auto shoot)
+- "Flapperjack is a geometrical GOAT! Kill a million without getting touched!
