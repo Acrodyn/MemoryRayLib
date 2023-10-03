@@ -15,6 +15,7 @@ public:
 	void Update();
 	void ActivateBullet(Vector2 position, Vector2 direction);
 	void ExtendPool(int extendBy);
+	std::vector<Bullet*> GetActiveBullets();
 
 private:
 	std::vector<Bullet*> _bullets;

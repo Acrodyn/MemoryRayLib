@@ -12,6 +12,8 @@ public:
 	void Activate(Vector2 position, Vector2 direction);
 	void Delete();
 	bool IsActive();
+	Vector2 GetPosition();
+	float GetSize();
 
 private:
 	bool IsOutOfBoundaries();

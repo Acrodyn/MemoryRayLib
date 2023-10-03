@@ -43,3 +43,18 @@ void BulletPool::ExtendPool(int extendBy)
 		_bullets.push_back(new Bullet());
 	}
 }
+
+std::vector<Bullet*> BulletPool::GetActiveBullets()
+{
+	std::vector<Bullet*> activeBullets;
+
+	for (auto& buller : _bullets)
+	{
+		if (buller->IsActive())
+		{
+			activeBullets.push_back(buller);
+		}
+	}
+
+	return activeBullets;
+}

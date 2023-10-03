@@ -46,6 +46,16 @@ bool Bullet::IsActive()
 	return _isActive;
 }
 
+Vector2 Bullet::GetPosition()
+{
+	return _position;
+}
+
+float Bullet::GetSize()
+{
+	return _radius;
+}
+
 bool Bullet::IsOutOfBoundaries()
 {
 	int display = GetCurrentMonitor();

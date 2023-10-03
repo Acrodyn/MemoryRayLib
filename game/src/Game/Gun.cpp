@@ -33,7 +33,7 @@ Vector2 Gun::GetShootDirection()
 	shootPointDirection.x = cos(_angle * DEG2RAD);
 	shootPointDirection.y = sin(_angle * DEG2RAD);
 
-	return shootPointDirection;
+	return Vector2Normalize(shootPointDirection);
 }
 
 void Gun::RotateTowardMouse()
